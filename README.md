@@ -24,7 +24,8 @@ For further details, please refer to our manuscript: https://www.biorxiv.org/con
 
 ## Requirements
 
-All experiments were run using python 3.10 and pytorch 2.10 using CUDA 12.1 AND CUDNN 8.9.2
+All experiments were run using python 3.10 and pytorch 2.10 using CUDA 12.1 and CUDNN 8.9.2 on Red Hat Enterprise Linux
+8.10  
 For insertion site prediction, ProDomino uses embeddings from the [ESM-2](https://github.com/facebookresearch/esm) 3B model.
 
 ## Installation
@@ -35,6 +36,7 @@ Then run:
 conda env create -n prodomino --file environment.yml
 ```
 
+Installation should take 10 - 15 minutes.  
 A likely point of installation failure are CUDA version conflicts. If installation fails install the required CUDA or adapt them to your systems version.
 
 
@@ -59,6 +61,7 @@ embed = embedder.predict_embedding(seq)
 pred = model.predict_insertion_sites(embed)
 ```
 
+Runtime will differ based on the input sequence but should be under 5 minutes using a GPU.  
 A complete example can be found in `example.ipynb`
 
 
