@@ -19,7 +19,7 @@ from io import StringIO
 import py3Dmol
 class Embedder:
     def __init__(self):
-        url = "tcp://localhost:8891"
+        url = "tcp://localhost:8801"
         torch.distributed.init_process_group(backend="nccl", init_method=url, world_size=1, rank=0)
         model_name = "esm2_t36_3B_UR50D"
         model_data, regression_data = esm.pretrained._download_model_and_regression_data(model_name)
@@ -99,6 +99,7 @@ class InsertionSitePrediction:
         self.esm_embedding = esm_embedding
         self.predicted_sites = predicted_sites
         self.sequence = sequence
+        self.length = np.linspace(1, 1, len(self.sequence))
 
         if pdb_path is not None:
             par = PDBParser()
@@ -229,3 +230,13 @@ class InsertionSitePrediction:
         sns.scatterplot(x=sasa_arr,y=self.predicted_sites)
         plt.xlabel('SASA [ShrakeRupley]')
         plt.ylabel('Predicted insertion tolerance')
+
+
+with open('output.csv', mode='w', newline='') as file:
+    writer = csv.writer(file)
+    # Write header
+    writer.writerow(['position', 'amino_acid', 'insertion_prob'])
+
+    # Write data rows
+    for InsertionSitePrediction in set:
+        writer.writerow([InsertionSitePrediction.length, InsertionSitePrediction.sequence, InsertionSitePrediction.predicted_sites])
