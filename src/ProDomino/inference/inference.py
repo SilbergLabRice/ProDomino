@@ -230,13 +230,3 @@ class InsertionSitePrediction:
         sns.scatterplot(x=sasa_arr,y=self.predicted_sites)
         plt.xlabel('SASA [ShrakeRupley]')
         plt.ylabel('Predicted insertion tolerance')
-
-
-with open('output.csv', mode='w', newline='') as file:
-    writer = csv.writer(file)
-    # Write header
-    writer.writerow(['position', 'amino_acid', 'insertion_prob'])
-
-    # Write data rows
-    for InsertionSitePrediction in set:
-        writer.writerow([InsertionSitePrediction.length, InsertionSitePrediction.sequence, InsertionSitePrediction.predicted_sites])
