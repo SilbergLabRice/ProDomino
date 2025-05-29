@@ -19,7 +19,7 @@ from io import StringIO
 import py3Dmol
 class Embedder:
     def __init__(self):
-        url = "tcp://localhost:8891"
+        url = "tcp://localhost:8800"
         torch.distributed.init_process_group(backend="nccl", init_method=url, world_size=1, rank=0)
         model_name = "esm2_t36_3B_UR50D"
         model_data, regression_data = esm.pretrained._download_model_and_regression_data(model_name)
